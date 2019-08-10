@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import org.litepal.LitePal;
+import org.litepal.crud.LitePalSupport;
 import org.litepal.tablemanager.Connector;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,6 +47,14 @@ public class MainActivity extends AppCompatActivity {
                 book.setPrice(14.95);
                 book.setPress("Anchor");
                 book.updateAll("name = ? and author = ?", "The Lost Symbol",  "Dan Brown");
+            }
+        });
+
+        Button deleteButton = (Button) findViewById(R.id.delete_data);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LitePal.deleteAll(Book.class, "price < ?", "15");
             }
         });
 
