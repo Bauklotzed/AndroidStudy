@@ -3,6 +3,7 @@ package com.example.litepaltest;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -10,7 +11,11 @@ import org.litepal.LitePal;
 import org.litepal.crud.LitePalSupport;
 import org.litepal.tablemanager.Connector;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LitePal.deleteAll(Book.class, "price < ?", "15");
+            }
+        });
+
+        Button queryButton = (Button) findViewById(R.id.query_data);
+        queryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Book> books = LitePal.findAll(Book.class);
+                for (Book book : books) {
+                    Log.d(TAG, "book name is " + book.getName());
+                    Log.d(TAG, "book author is " + book.getAuthor());
+                    Log.d(TAG, "book pages is " + book.getPages());
+                }
             }
         });
 
