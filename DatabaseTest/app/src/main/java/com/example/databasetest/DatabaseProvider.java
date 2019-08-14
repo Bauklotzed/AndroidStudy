@@ -130,6 +130,7 @@ public class DatabaseProvider extends ContentProvider {
             default:
                 break;
         }
+        return deletedRows;
     }
 
     @Override
