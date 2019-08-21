@@ -9,7 +9,7 @@ import java.nio.Buffer;
 
 public class HttpUtil {
 
-    public static String sendHttpRequest(final String address, final HttpCallbackListener listener) {
+    public static void sendHttpRequest(final String address, final HttpCallbackListener listener) {
 
         new Thread(new Runnable() {
             @Override
@@ -44,9 +44,6 @@ public class HttpUtil {
                 }
             }
         }).start();
-
-
-
 
     }
 

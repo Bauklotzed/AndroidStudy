@@ -28,18 +28,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if (view.getId() == R.id.send_request) {
             String address = "https://www.baidu.com";
-            String response = HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
+            HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
                 @Override
                 public void onFinish(String response) {
-                    responseText.setText(response);
+                    showResponse(response);
                 }
 
                 @Override
                 public void onError(Exception e) {
-                    responseText.setText(e.getMessage());
+                    showResponse(e.getMessage());
                 }
             });
         }
+    }
+
+    private void showResponse(final String response) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                responseText.setText(response);
+            }
+        });
     }
 
 }
