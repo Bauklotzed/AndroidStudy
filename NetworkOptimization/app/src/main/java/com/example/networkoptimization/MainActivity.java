@@ -7,6 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Response;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
@@ -28,14 +35,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if (view.getId() == R.id.send_request) {
             String address = "https://www.baidu.com";
-            HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
+            HttpUtil.sendHttpRequest(address, new okhttp3.Callback() {
                 @Override
-                public void onFinish(String response) {
-                    showResponse(response);
+                public void onResponse(Call call, Response response) throws IOException {
+                    showResponse(response.body().string());
                 }
 
                 @Override
-                public void onError(Exception e) {
+                public void onFailure(Call call, IOException e) {
                     showResponse(e.getMessage());
                 }
             });
